@@ -16,8 +16,8 @@ Individuals should be able to search for a city's current weather and receive:
 ## Build status
 * Started 5/8/2020
 * Outstanding Issues
-  * Add API
-  * Core Coding
+  * Render weather info to screen
+  * Render 5 day forcast
   * Fix moment to display
 
 ## Tech/framework used--to be employer-ready:

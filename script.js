@@ -15,14 +15,15 @@ $(document).ready(function () {
       url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey,
       dataType: "json",
     }).then(function (response) {
+  
       console.log(response);
       console.log(response.coord.lon);
       console.log(response.coord.lat);
+
+      $("#cityInfo").html(response.cityName)
+
   
-      $("#someInfo").text(response.name)
-  
-  
-      $.ajax({
+        $.ajax({
         type: "GET",
         url: "https://api.openweathermap.org/data/2.5/onecall?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&appid=" + APIkey,
         dataType: "json",
@@ -32,14 +33,6 @@ $(document).ready(function () {
       var uvi = response.current.uvi;
       })
   
-    // add moment date to header
-    var currentDate = moment().format('MMMM DD, YYYY');
-    $(".currentDate").text(currentDate);
-  
-  // adds moment time to header
-    var currentTime = moment().format('h:mm a');
-    $(".currentTime").text(currentTime);
-  
     });
   
       $.ajax({
@@ -48,11 +41,17 @@ $(document).ready(function () {
       }).then(function(response) {
         console.log(response);
       });
-
-
-
+  
   })
 
-
-
 });
+
+   // add moment date to header
+  var currentDate = moment().format('MMMM DD, YYYY');
+  $(".currentDate").text(currentDate);
+  
+  // adds moment time to header
+  var currentTime = moment().format('h:mm a');
+  $(".currentTime").text(currentTime);
+ 
+ 
