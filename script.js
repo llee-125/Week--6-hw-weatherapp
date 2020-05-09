@@ -1,8 +1,11 @@
 // set up jQuery
 $(document).ready(function () {
-  var textInput = "Berkeley";
+  var cityName = "San Ramon";
+  console.log(cityName);
 
-  $("#userSubmit").on("click", function(){
+  $("#submit").on("click", function(){
+
+  $(".cityName").html("<h1>" + response.name)
 
   })
 
@@ -10,12 +13,14 @@ $(document).ready(function () {
 
   $.ajax({
     type: "GET", 
-    url: "https://api.openweathermap.org/data/2.5/weather?q=" + textInput + "&appid=" + APIkey,
+    url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey,
     dataType: "json",
   }).then(function (response) {
     console.log(response);
     console.log(response.coord.lon);
     console.log(response.coord.lat);
+
+      $(".cityName").html("<h1>" + response.name)
 
     $.ajax({
       type: "GET",
@@ -23,7 +28,8 @@ $(document).ready(function () {
       dataType: "json",
     }).then(function(response){
       console.log(response);
-      var uvi = response.current.uvi;
+      
+    var uvi = response.current.uvi;
     })
 
   // add moment date to header
@@ -48,7 +54,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "GET",
-      url: "https://api.openweathermap.org/data/2.5/forecast?q=" + textInput + "&appid=" + APIkey,
+      url: "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIkey,
     }).then(function(response) {
       console.log(response);
     });

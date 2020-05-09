@@ -1,9 +1,12 @@
 .card {
   margin-left: 200px;
   margin-right: 200px;
-  margin-bottom: 50px;
+  margin-bottom: 250px;
 }
 
+.card-header {
+  text-align: center;
+}
 
 .jumbotron {
   margin-left: 200px;
