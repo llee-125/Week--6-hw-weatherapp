@@ -6,6 +6,7 @@ $(document).ready(function () {
   var tempHolder = $(".temp");
   var humidityHolder = $(".humidity");
   var windHolder = $(".wind");
+  var uviHolider = $(".uvi");
 
   // name variables pulling specific elements from html document
 
@@ -58,20 +59,13 @@ $(document).ready(function () {
 
       $("#cityInfo").html(response.cityName);
       var wind = response.wind.speed;
-      console.log(wind);
       var temp = response.main.temp;
-      console.log(temp);
       var humid = response.main.humidity;
-      console.log(humid);
 
       cityHolder.text(userInput);
-      console.log(userInput);
-      tempHolder.text(temp);
-      console.log(temp);
-      humidityHolder.text(humidity);
-      console.log(humidity);
-      windHolder.text(wind);
-      console.log(wind);
+      tempHolder.text("Temperature:  " + temp + "%");
+      humidityHolder.text("Humidity:  " + humid);
+      windHolder.text("Wind Speed:  " + wind);
 
       $.ajax({
         type: "GET",
@@ -87,6 +81,8 @@ $(document).ready(function () {
         console.log(response);
 
         var uvi = response.current.uvi;
+
+        uviHolider.text("UVI:  " + uvi);
       });
     });
 
