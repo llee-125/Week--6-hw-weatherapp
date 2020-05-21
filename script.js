@@ -57,7 +57,6 @@ $(document).ready(function () {
       // console.log(response.coord.lon);
       // console.log(response.coord.lat);
 
-      $("#cityInfo").html(response.cityName);
       var wind = response.wind.speed;
       var temp = response.main.temp;
       var humid = response.main.humidity;
@@ -95,6 +94,20 @@ $(document).ready(function () {
         APIkey,
     }).then(function (response) {
       console.log(response);
+
+      for (var i = 0; i < response.list.length; i++) {
+        var icon = response.list[i].weather[0].icon;
+        console.log(icon);
+        // "01d"
+        var iconURL = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
+        var iconImage = $("<img>");
+        iconImage.attr("src", iconURL);
+        $(".icon-holders").append(iconImage);
+      }
+      // var icon2 =
+      // var icon3 =
+      // var icon4 =
+      // var icon5 =
     });
 
     renderCities(cities);
