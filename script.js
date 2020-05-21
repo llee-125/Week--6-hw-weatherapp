@@ -53,7 +53,7 @@ $(document).ready(function () {
         "&units=imperial",
       dataType: "json",
     }).then(function (response) {
-      // console.log(response);
+      console.log(response);
       // console.log(response.coord.lon);
       // console.log(response.coord.lat);
 
@@ -95,27 +95,67 @@ $(document).ready(function () {
     }).then(function (response) {
       console.log(response);
 
-      for (var i = 0; i < response.list.length; i++) {
-        var icon = response.list[i].weather[0].icon;
-        console.log(icon);
-        // "01d"
-        var iconURL = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
-        var iconImage = $("<img>");
-        iconImage.attr("src", iconURL);
-        $(".icon-holders").append(iconImage);
-      }
+      // for (var i = 0; i < response.list.length; i++) {
+      //   var icon = response.list[i].weather[0].icon;
+      //   console.log(icon);
+      //   // "01d"
+      //   var iconURL = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
+      //   var iconImage = $("<img>");
+      //   iconImage.attr("src", iconURL);
+      //   $(".icon-holders").append(iconImage);
+      // }
       // var icon2 =
       // var icon3 =
       // var icon4 =
       // var icon5 =
+
+      var fiveDate1 = currentDate;
+      var fiveDate2 = currentDate;
+      var fiveDate3 = currentDate;
+      var fiveDate4 = currentDate;
+      var fiveDate5 = currentDate;
+
+      var fiveTemp1 = response.list[1],
+        main,
+        temp;
+      var fiveTemp2 = response.list[2],
+        main,
+        temp;
+      var fiveTemp3 = response.list[3],
+        main,
+        temp;
+      var fiveTemp4 = response.list[4],
+        main,
+        temp;
+      var fiveTemp5 = response.list[5],
+        main,
+        temp;
+
+      fiveTempHolder.text("Temp: " + fiveTemp1);
+      fiveTempHolder.text("Temp: " + fiveTemp2);
+      fiveTempHolder.text("Temp: " + fiveTemp3);
+      fiveTempHolder.text("Temp: " + fiveTemp4);
+      fiveTempHolder.text("Temp: " + fiveTemp5);
+
+      var fiveHumid1 = response.list[1],
+        main,
+        humid;
+      var fiveHumid2 = response.list[2],
+        main,
+        humid;
+      var fiveHumid3 = response.list[3],
+        main,
+        humid;
+      var fiveHumid4 = response.list[4],
+        main,
+        humid;
+      var fiveHumid5 = response.list[5],
+        main,
+        humid;
     });
 
     renderCities(cities);
   });
-
-  // function savedCities(){
-  //   var
-  // }
 
   // add moment date to header
   var currentDate = moment().format("MMMM DD, YYYY");
