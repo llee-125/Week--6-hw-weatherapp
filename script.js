@@ -1,22 +1,25 @@
-// set up jQuery
 $(document).ready(function () {
-  // var cityName = "San Ramon";
-  // console.log(cityName);
   var cityHolder = $(".userInput");
   var tempHolder = $(".temp");
   var humidityHolder = $(".humidity");
   var windHolder = $(".wind");
   var uviHolider = $(".uvi");
+  var fiveTempHolder1 = $(".fiveTempHolder1");
+  var fiveTempHolder2 = $(".fiveTempHolder2");
+  var fiveTempHolder3 = $(".fiveTempHolder3");
+  var fiveTempHolder4 = $(".fiveTempHolder4");
+  var fiveTempHolder5 = $(".fiveTempHolder5");
+  var fiveHumidHolder1 = $(".fiveHumidHolder1");
+  var fiveHumidHolder2 = $(".fiveHumidHolder2");
+  var fiveHumidHolder3 = $(".fiveHumidHolder3");
+  var fiveHumidHolder4 = $(".fiveHumidHolder4");
+  var fiveHumidHolder5 = $(".fiveHumidHolder5");
 
   // name variables pulling specific elements from html document
-
   var cityList = document.querySelector("#city-list");
 
   // Grab cities from local storage
   var cities = [];
-
-  var listEl = document.createElement("li");
-  listEl.setAttribute("class", "banana");
 
   // Clear cityName element and update cityCountSpan
   function renderCities(citiesArray) {
@@ -53,17 +56,15 @@ $(document).ready(function () {
         "&units=imperial",
       dataType: "json",
     }).then(function (response) {
-      console.log(response);
-      // console.log(response.coord.lon);
-      // console.log(response.coord.lat);
+      // console.log(response);
 
       var wind = response.wind.speed;
       var temp = response.main.temp;
       var humid = response.main.humidity;
 
       cityHolder.text(userInput);
-      tempHolder.text("Temperature:  " + temp + "%");
-      humidityHolder.text("Humidity:  " + humid);
+      tempHolder.text("Temperature:  " + temp);
+      humidityHolder.text("Humidity:  " + humid + "%");
       windHolder.text("Wind Speed:  " + wind);
 
       $.ajax({
@@ -91,7 +92,8 @@ $(document).ready(function () {
         "https://api.openweathermap.org/data/2.5/forecast?q=" +
         userInput +
         "&appid=" +
-        APIkey,
+        APIkey +
+        "&units=imperial",
     }).then(function (response) {
       console.log(response);
 
@@ -109,49 +111,35 @@ $(document).ready(function () {
       // var icon4 =
       // var icon5 =
 
-      var fiveDate1 = currentDate;
-      var fiveDate2 = currentDate;
-      var fiveDate3 = currentDate;
-      var fiveDate4 = currentDate;
-      var fiveDate5 = currentDate;
+      // var fiveDate1 = currentDate;
+      // var fiveDate2 = currentDate;
+      // var fiveDate3 = currentDate;
+      // var fiveDate4 = currentDate;
+      // var fiveDate5 = currentDate;
 
-      var fiveTemp1 = response.list[1],
-        main,
-        temp;
-      var fiveTemp2 = response.list[2],
-        main,
-        temp;
-      var fiveTemp3 = response.list[3],
-        main,
-        temp;
-      var fiveTemp4 = response.list[4],
-        main,
-        temp;
-      var fiveTemp5 = response.list[5],
-        main,
-        temp;
+      var fiveTemp1 = response.list[1].main.temp;
+      var fiveTemp2 = response.list[9].main.temp;
+      var fiveTemp3 = response.list[17].main.temp;
+      var fiveTemp4 = response.list[25].main.temp;
+      var fiveTemp5 = response.list[33].main.temp;
 
-      fiveTempHolder.text("Temp: " + fiveTemp1);
-      fiveTempHolder.text("Temp: " + fiveTemp2);
-      fiveTempHolder.text("Temp: " + fiveTemp3);
-      fiveTempHolder.text("Temp: " + fiveTemp4);
-      fiveTempHolder.text("Temp: " + fiveTemp5);
+      fiveTempHolder1.text("Temp: " + fiveTemp1);
+      fiveTempHolder2.text("Temp: " + fiveTemp2);
+      fiveTempHolder3.text("Temp: " + fiveTemp3);
+      fiveTempHolder4.text("Temp: " + fiveTemp4);
+      fiveTempHolder5.text("Temp: " + fiveTemp5);
 
-      var fiveHumid1 = response.list[1],
-        main,
-        humid;
-      var fiveHumid2 = response.list[2],
-        main,
-        humid;
-      var fiveHumid3 = response.list[3],
-        main,
-        humid;
-      var fiveHumid4 = response.list[4],
-        main,
-        humid;
-      var fiveHumid5 = response.list[5],
-        main,
-        humid;
+      var fiveHumid1 = response.list[1].main.humidity;
+      var fiveHumid2 = response.list[2].main.humidity;
+      var fiveHumid3 = response.list[3].main.humidity;
+      var fiveHumid4 = response.list[4].main.humidity;
+      var fiveHumid5 = response.list[5].main.humidity;
+
+      fiveHumidHolder1.text("Humid: " + fiveHumid1 + "%");
+      fiveHumidHolder2.text("Humid: " + fiveHumid2 + "%");
+      fiveHumidHolder3.text("Humid: " + fiveHumid3 + "%");
+      fiveHumidHolder4.text("Humid: " + fiveHumid4 + "%");
+      fiveHumidHolder5.text("Humid: " + fiveHumid5 + "%");
     });
 
     renderCities(cities);
@@ -164,6 +152,11 @@ $(document).ready(function () {
   // adds moment time to header
   var currentTime = moment().format("h:mm a");
   $(".currentTime").text(currentTime);
+
+  // var oneDayForward = new moment().add(1, "day");
+  // document.write(oneDayForward.format("MMMM DD"));
+  // $(".oneDayForward").text(oneDayForward);
+  // console.log(oneDayForward);
 
   // Immediately render cities list on page load/refresh
   renderCities(cities);
