@@ -4,17 +4,6 @@ $(document).ready(function () {
   var humidityHolder = $(".humidity");
   var windHolder = $(".wind");
   var uviHolider = $(".uvi");
-  var fiveTempHolder1 = $(".fiveTempHolder1");
-  var fiveTempHolder2 = $(".fiveTempHolder2");
-  var fiveTempHolder3 = $(".fiveTempHolder3");
-  var fiveTempHolder4 = $(".fiveTempHolder4");
-  var fiveTempHolder5 = $(".fiveTempHolder5");
-  var fiveHumidHolder1 = $(".fiveHumidHolder1");
-  var fiveHumidHolder2 = $(".fiveHumidHolder2");
-  var fiveHumidHolder3 = $(".fiveHumidHolder3");
-  var fiveHumidHolder4 = $(".fiveHumidHolder4");
-  var fiveHumidHolder5 = $(".fiveHumidHolder5");
-  var fiveIconHolder1 = $(".fiveIcon1");
 
   // name variables pulling specific elements from html document
   var cityList = document.querySelector("#city-list");
@@ -42,7 +31,6 @@ $(document).ready(function () {
   $("#submit").on("click", function (e) {
     e.preventDefault();
     var userInput = $("#cityName").val();
-    // console.log(userInput);
     cities.push(userInput);
 
     var APIkey = "9f6f9f27da666f2498435db26b1c3410";
@@ -57,8 +45,6 @@ $(document).ready(function () {
         "&units=imperial",
       dataType: "json",
     }).then(function (response) {
-      // console.log(response);
-
       var wind = response.wind.speed;
       var temp = response.main.temp;
       var humid = response.main.humidity;
@@ -98,6 +84,7 @@ $(document).ready(function () {
     }).then(function (response) {
       console.log(response);
 
+      $("#fiveDayForecast").empty();
       for (var i = 1; i < response.list.length; i = i + 8) {
         var forecastIcon = response.list[i].weather[0].icon;
 
@@ -113,7 +100,7 @@ $(document).ready(function () {
         // Set attributes for the holders
         forecastDiv.attr("class", "col-lg"); // <div class="col-lg"></div>
         dateH6.attr("class", "fiveDate" + i);
-        iconImg.attr("src", iconURL); // <img src="http://openweathermap.org/img/wn/01d@2x.png">
+        iconImg.attr("src", iconURL);
 
         // Set the text for the holders with the response info
         var fiveTemp1 = response.list[i].main.temp;
@@ -122,6 +109,7 @@ $(document).ready(function () {
         humidH6.text("Humid: " + fiveHumid1 + "%");
 
         // Append everything
+
         $("#fiveDayForecast").append(forecastDiv);
         forecastDiv.append(dateH6);
         forecastDiv.append(tempH6);
@@ -140,7 +128,8 @@ $(document).ready(function () {
 
   var today = moment().format("MM/DD/YYYY");
   var currentDate = moment().format("MMMM DD, YYYY");
-  var fiveDate1 = moment(today).add(1, "days").format("MM/DD/YYYY");
+
+  var dateH6 = moment(today).add(1, "days").format("MM/DD/YYYY");
   var fiveDate2 = moment(today).add(2, "days").format("MM/DD/YYYY");
   var fiveDate3 = moment(today).add(3, "days").format("MM/DD/YYYY");
   var fiveDate4 = moment(today).add(4, "days").format("MM/DD/YYYY");
@@ -148,7 +137,7 @@ $(document).ready(function () {
 
   $(".currentDate").text(currentDate);
 
-  $(".fiveDate1").text(fiveDate1);
+  $(".dateH6").text(dateH6);
   $(".fiveDate9").text(fiveDate2);
   $(".fiveDate17").text(fiveDate3);
   $(".fiveDate25").text(fiveDate4);
