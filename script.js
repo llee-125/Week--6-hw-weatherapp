@@ -14,6 +14,7 @@ $(document).ready(function () {
   var fiveHumidHolder3 = $(".fiveHumidHolder3");
   var fiveHumidHolder4 = $(".fiveHumidHolder4");
   var fiveHumidHolder5 = $(".fiveHumidHolder5");
+  var fiveIconHolder1 = $(".fiveIcon1");
 
   // name variables pulling specific elements from html document
   var cityList = document.querySelector("#city-list");
@@ -97,66 +98,65 @@ $(document).ready(function () {
     }).then(function (response) {
       console.log(response);
 
-      // for (var i = 0; i < response.list.length; i++) {
-      //   var icon = response.list[i].weather[0].icon;
-      //   console.log(icon);
-      //   // "01d"
-      //   var iconURL = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
-      //   var iconImage = $("<img>");
-      //   iconImage.attr("src", iconURL);
-      //   $(".icon-holders").append(iconImage);
-      // }
-      // var icon2 =
-      // var icon3 =
-      // var icon4 =
-      // var icon5 =
+      for (var i = 1; i < response.list.length; i = i + 8) {
+        var forecastIcon = response.list[i].weather[0].icon;
 
-      // var fiveDate1 = currentDate;
-      // var fiveDate2 = currentDate;
-      // var fiveDate3 = currentDate;
-      // var fiveDate4 = currentDate;
-      // var fiveDate5 = currentDate;
+        var iconURL =
+          "http://openweathermap.org/img/wn/" + forecastIcon + "@2x.png";
+        // Create holders for the info
+        var forecastDiv = $("<div>"); //<div></div>
+        var dateH6 = $("<h6>");
+        var tempH6 = $("<h6>");
+        var humidH6 = $("<h6>");
+        var iconImg = $("<img>");
 
-      var fiveTemp1 = response.list[1].main.temp;
-      var fiveTemp2 = response.list[9].main.temp;
-      var fiveTemp3 = response.list[17].main.temp;
-      var fiveTemp4 = response.list[25].main.temp;
-      var fiveTemp5 = response.list[33].main.temp;
+        // Set attributes for the holders
+        forecastDiv.attr("class", "col-lg"); // <div class="col-lg"></div>
+        dateH6.attr("class", "fiveDate" + i);
+        iconImg.attr("src", iconURL); // <img src="http://openweathermap.org/img/wn/01d@2x.png">
 
-      fiveTempHolder1.text("Temp: " + fiveTemp1);
-      fiveTempHolder2.text("Temp: " + fiveTemp2);
-      fiveTempHolder3.text("Temp: " + fiveTemp3);
-      fiveTempHolder4.text("Temp: " + fiveTemp4);
-      fiveTempHolder5.text("Temp: " + fiveTemp5);
+        // Set the text for the holders with the response info
+        var fiveTemp1 = response.list[i].main.temp;
+        tempH6.text("Temp: " + fiveTemp1);
+        var fiveHumid1 = response.list[i].main.humidity;
+        humidH6.text("Humid: " + fiveHumid1 + "%");
 
-      var fiveHumid1 = response.list[1].main.humidity;
-      var fiveHumid2 = response.list[2].main.humidity;
-      var fiveHumid3 = response.list[3].main.humidity;
-      var fiveHumid4 = response.list[4].main.humidity;
-      var fiveHumid5 = response.list[5].main.humidity;
+        // Append everything
+        $("#fiveDayForecast").append(forecastDiv);
+        forecastDiv.append(dateH6);
+        forecastDiv.append(tempH6);
+        forecastDiv.append(humidH6);
+        forecastDiv.append(iconImg);
+      }
 
-      fiveHumidHolder1.text("Humid: " + fiveHumid1 + "%");
-      fiveHumidHolder2.text("Humid: " + fiveHumid2 + "%");
-      fiveHumidHolder3.text("Humid: " + fiveHumid3 + "%");
-      fiveHumidHolder4.text("Humid: " + fiveHumid4 + "%");
-      fiveHumidHolder5.text("Humid: " + fiveHumid5 + "%");
+      // i++ is a shortcut for i = i + 1
+      // $(".className") is equivalent to document.getElementsByClassName("className") which is also equivalent to document.querySelector(".className")
     });
 
     renderCities(cities);
   });
 
   // add moment date to header
+
+  var today = moment().format("MM/DD/YYYY");
   var currentDate = moment().format("MMMM DD, YYYY");
+  var fiveDate1 = moment(today).add(1, "days").format("MM/DD/YYYY");
+  var fiveDate2 = moment(today).add(2, "days").format("MM/DD/YYYY");
+  var fiveDate3 = moment(today).add(3, "days").format("MM/DD/YYYY");
+  var fiveDate4 = moment(today).add(4, "days").format("MM/DD/YYYY");
+  var fiveDate5 = moment(today).add(5, "days").format("MM/DD/YYYY");
+
   $(".currentDate").text(currentDate);
+
+  $(".fiveDate1").text(fiveDate1);
+  $(".fiveDate9").text(fiveDate2);
+  $(".fiveDate17").text(fiveDate3);
+  $(".fiveDate25").text(fiveDate4);
+  $(".fiveDate33").text(fiveDate5);
 
   // adds moment time to header
   var currentTime = moment().format("h:mm a");
   $(".currentTime").text(currentTime);
-
-  // var oneDayForward = new moment().add(1, "day");
-  // document.write(oneDayForward.format("MMMM DD"));
-  // $(".oneDayForward").text(oneDayForward);
-  // console.log(oneDayForward);
 
   // Immediately render cities list on page load/refresh
   renderCities(cities);
