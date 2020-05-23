@@ -107,6 +107,8 @@ $(document).ready(function () {
         tempH6.text("Temp: " + fiveTemp1);
         var fiveHumid1 = response.list[i].main.humidity;
         humidH6.text("Humid: " + fiveHumid1 + "%");
+        var fiveDate = response.list[i];
+        dateH6.text(dateH6);
 
         // Append everything
 
@@ -120,28 +122,26 @@ $(document).ready(function () {
       // i++ is a shortcut for i = i + 1
       // $(".className") is equivalent to document.getElementsByClassName("className") which is also equivalent to document.querySelector(".className")
     });
+    // add moment date to header
 
+    var today = moment().format("MM/DD/YYYY");
+    var currentDate = moment().format("MMMM DD, YYYY");
+    var dateH6 = moment().format("MM/DD/YYYY");
+
+    // var fiveDate2 = moment(today).add(2, "days").format("MM/DD/YYYY");
+    // var fiveDate3 = moment(today).add(3, "days").format("MM/DD/YYYY");
+    // var fiveDate4 = moment(today).add(4, "days").format("MM/DD/YYYY");
+    // var fiveDate5 = moment(today).add(5, "days").format("MM/DD/YYYY");
+
+    $(".currentDate").text(currentDate);
+
+    // $(".dateH6").text(dateH6);
+    // $(".fiveDate9").text(fiveDate9);
+    // $(".fiveDate17").text(fiveDate17);
+    // $(".fiveDate25").text(fiveDate25);
+    // $(".fiveDate33").text(fiveDate33);
     renderCities(cities);
   });
-
-  // add moment date to header
-
-  var today = moment().format("MM/DD/YYYY");
-  var currentDate = moment().format("MMMM DD, YYYY");
-
-  var dateH6 = moment(today).add(1, "days").format("MM/DD/YYYY");
-  var fiveDate2 = moment(today).add(2, "days").format("MM/DD/YYYY");
-  var fiveDate3 = moment(today).add(3, "days").format("MM/DD/YYYY");
-  var fiveDate4 = moment(today).add(4, "days").format("MM/DD/YYYY");
-  var fiveDate5 = moment(today).add(5, "days").format("MM/DD/YYYY");
-
-  $(".currentDate").text(currentDate);
-
-  $(".dateH6").text(dateH6);
-  $(".fiveDate9").text(fiveDate2);
-  $(".fiveDate17").text(fiveDate3);
-  $(".fiveDate25").text(fiveDate4);
-  $(".fiveDate33").text(fiveDate5);
 
   // adds moment time to header
   var currentTime = moment().format("h:mm a");
