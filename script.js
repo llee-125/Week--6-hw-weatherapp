@@ -45,6 +45,8 @@ $(document).ready(function () {
         "&units=imperial",
       dataType: "json",
     }).then(function (response) {
+      console.log(response);
+
       var wind = response.wind.speed;
       var temp = response.main.temp;
       var humid = response.main.humidity;
@@ -82,7 +84,7 @@ $(document).ready(function () {
         APIkey +
         "&units=imperial",
     }).then(function (response) {
-      console.log(response);
+      console.log(response.list);
 
       $("#fiveDayForecast").empty();
       for (var i = 1; i < response.list.length; i = i + 8) {
@@ -107,11 +109,11 @@ $(document).ready(function () {
         tempH6.text("Temp: " + fiveTemp1);
         var fiveHumid1 = response.list[i].main.humidity;
         humidH6.text("Humid: " + fiveHumid1 + "%");
-        var fiveDate = response.list[i];
-        dateH6.text(dateH6);
+        var fiveDate = response.list[i].dt_txt;
+        var date = moment(fiveDate).format("MM/DD/YYYY");
+        dateH6.text(date);
 
         // Append everything
-
         $("#fiveDayForecast").append(forecastDiv);
         forecastDiv.append(dateH6);
         forecastDiv.append(tempH6);
@@ -123,23 +125,9 @@ $(document).ready(function () {
       // $(".className") is equivalent to document.getElementsByClassName("className") which is also equivalent to document.querySelector(".className")
     });
     // add moment date to header
-
-    var today = moment().format("MM/DD/YYYY");
     var currentDate = moment().format("MMMM DD, YYYY");
-    var dateH6 = moment().format("MM/DD/YYYY");
-
-    // var fiveDate2 = moment(today).add(2, "days").format("MM/DD/YYYY");
-    // var fiveDate3 = moment(today).add(3, "days").format("MM/DD/YYYY");
-    // var fiveDate4 = moment(today).add(4, "days").format("MM/DD/YYYY");
-    // var fiveDate5 = moment(today).add(5, "days").format("MM/DD/YYYY");
-
     $(".currentDate").text(currentDate);
 
-    // $(".dateH6").text(dateH6);
-    // $(".fiveDate9").text(fiveDate9);
-    // $(".fiveDate17").text(fiveDate17);
-    // $(".fiveDate25").text(fiveDate25);
-    // $(".fiveDate33").text(fiveDate33);
     renderCities(cities);
   });
 
